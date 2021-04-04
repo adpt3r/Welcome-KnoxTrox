@@ -1,20 +1,12 @@
-# Baby Steps configuring ReactJS Sample App on the awesome JSNode. by 3minem
+# Learning in a HardCore Way! DigitalAlchemist.
 
-## Do it in /api and /client
+### Pasos siguientes hacer un front-end en react de un login que ya esta 70%
+### - Conectarlo de Gulp-Watch para no usar Jnode y ver lo cambios enseguida
+### - Usar MongoDB para guardar usuarios.
 
-
-> npm i
-
-## Start both nodes api and client at the same time
-
-> npm start
-
-## Configure api port in bin/www
-
->var port = normalizePort(process.env.PORT || '5000');
+<br>
 
 
-</br></br>
 
 ![ReactShady](https://i.imgur.com/KAGGzDs.png)
 
