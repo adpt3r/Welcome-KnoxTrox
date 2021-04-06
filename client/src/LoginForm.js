@@ -84,11 +84,11 @@ render() {
   return (
     <div className="loginForm">
       
-      Loguearse , Version sin CSS
+      <center>Welcome to KnoxTrox</center>
 
       <InputField
           type='text'
-          placeholder='Username'
+          placeholder='Usuario'
           value={this.state.username ? this.state.username: ''}
 
           onChange={ ((val)=> this.setInputValue('username', val)) }
