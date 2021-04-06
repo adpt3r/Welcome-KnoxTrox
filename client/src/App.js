@@ -1,33 +1,85 @@
-import logo from './logo.svg';
+
 import './App.css';
 import React from 'react';
+import UserStore from './stores/UserStore';
+import LoginForm from './LoginForm';
+import InputField from './InputField';
+import SubmitButton from './SubmitButton';
 
 class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={apiResponse: ""};
-  }
+ 
+  async componentDidMount(){
 
-callAPI(){
-  fetch("http://localhost:5000/default_eminem")
-    .then(res => res.text())
-    .then(res => this.setState({apiResponse: res}));
-}
+    try{
+        
+        let res = await fetch('/isLoggedIn',{
+            method: 'post',
+            headers: {
+              'Accept': 'application/json',
+              'Content-type':'application/json'
+            }
+          });
 
-componentWillMount(){
-  this.callAPI();
-}
+          let result = await res.json();
+
+          if(result && result.success){
+            UserStore.loading = false;
+            UserStore.isLoggedIn = true;
+            UserStore.username = result.username;
+          } 
+          else {
+            UserStore.loading = false;
+            UserStore.isLoggedIn = false;
+          }
+
+
+        }
+        catch(e){
+          UserStore.loading = false;
+          UserStore.isLoggedIn = false;
+      }
+    }
+  
+    async doLogout(){
+
+      try{
+          
+          let res = await fetch('/logout',{
+              method: 'post',
+              headers: {
+                'Accept': 'application/json',
+                'Content-type':'application/json'
+              }
+            });
+  
+            let result = await res.json();
+  
+            if(result && result.success){
+              UserStore.isLoggedIn = false;
+              UserStore.username = '';
+            } 
+          
+          }
+          catch(e){
+            console.log(e)
+        }
+      }
+
+
+
 
 render(){
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-      <p>{this.state.apiResponse}</p>
-    </div>
-  );
-}
+
+    return (
+      <div className="App">
+        <div className="container">
+      <LoginForm></LoginForm>       
+   </div>
+      </div>
+    );
+  }
+
+
 }
 
 export default App;
